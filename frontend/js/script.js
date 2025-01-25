@@ -103,5 +103,5 @@ const sendMessages = (event) =>{
 }
 
 loginForm.addEventListener("submit",handLeLogin)
-chatForm.addEventListener("submit", sendMessages)
 chatForm.addEventListener("touchend", sendMessages)
+chatForm.addEventListener("submit", sendMessages)
