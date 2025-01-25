@@ -161,7 +161,7 @@ body{
     }
 
     .chat__messages {
-        padding: 20px; /* Ajustar o padding para telas menores */
+        padding: 20px 20px 80px; /* Ajustar o padding para telas menores */
         overflow-y: auto; /* Adicionar barra de rolagem se necessário */
         flex-grow: 1;   /* Permitir que as mensagens ocupem o espaço restante */
     }
