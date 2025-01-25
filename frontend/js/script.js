@@ -1,5 +1,3 @@
-
-
 //login elements
 const login = document.querySelector(".login")
 const loginForm = login.querySelector(".login__form")
@@ -70,30 +68,25 @@ const scrollScreen = () =>{
 }
 
 const processMessage = ({data}) =>{
-    console.log("Mensagem recebida:", data);
 
     const messageData = JSON.parse(data);
 
-
-    // Verifica se é a mensagem de entrada do próprio usuário
     if (messageData.userID === user.id && messageData.content.endsWith("se juntou à conversa.")) {
-        const joinMessageElement = createJoinMessageElement("Você"); // Cria um elemento de mensagem de entrada com "Você"
+        const joinMessageElement = createJoinMessageElement("Você"); 
         chatMessages.appendChild(joinMessageElement);
         scrollScreen();
-        return; // Sai da função
+        return; 
     }
 
-
-    // Se for mensagem de outro usuário entrando
     if (messageData.content.endsWith("se juntou à conversa.")) {
-        const joinMessageElement = createJoinMessageElement(messageData.userName); // Usa o nome de usuário recebido na mensagem
+        const joinMessageElement = createJoinMessageElement(messageData.userName);
         chatMessages.appendChild(joinMessageElement);
         scrollScreen();
-        return; // Sai da função
+        return; 
     }
 
     const {userID,userName,userColor,content} =JSON.parse(data)
-    console.log("Dados da mensagem:", userID, userName, userColor, content);
+    
 
     const message =
         userID == user.id
@@ -114,27 +107,19 @@ const handLeLogin = (event) =>{
     login.style.display="none"
     chat.style.display="flex"
 
-    
     const firstMessage = {
         userID: user.id,
         userName: user.name,
         userColor: user.color,
-        content: `${user.name} se juntou à conversa.` // Mensagem de entrada
+        content: `${user.name} se juntou à conversa.` 
     };
     websocket = new WebSocket("wss://chat-o0z2.onrender.com");
     websocket.onopen = () => {
         console.log("Conexão WebSocket estabelecida com sucesso!");
-        // Envie a primeira mensagem aqui, dentro do onopen
         websocket.send(JSON.stringify(firstMessage));
     };
     
     websocket.onmessage = processMessage
-
-    
-
-    
-    
-    
 
 }
 
@@ -153,7 +138,6 @@ const sendMessages = (event) =>{
 }
 
 loginForm.addEventListener("submit",handLeLogin)
-
 chatForm.addEventListener("submit", sendMessages)
 
 
