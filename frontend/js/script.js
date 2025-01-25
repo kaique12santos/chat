@@ -103,5 +103,11 @@ const sendMessages = (event) =>{
 }
 
 loginForm.addEventListener("submit",handLeLogin)
-chatForm.addEventListener("touchend", sendMessages)
 chatForm.addEventListener("submit", sendMessages)
+if ("ontouchend" in window) {
+    chatForm.addEventListener("touchend", (event) => {
+        if (event.target.tagName === "BUTTON" || event.target.tagName === "INPUT") {
+            sendMessages(event);
+        }
+    });
+}
