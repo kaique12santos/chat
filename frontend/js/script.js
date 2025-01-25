@@ -77,6 +77,7 @@ const processMessage = ({data}) =>{
         const joinMessageElement = createJoinMessageElement(messageData.userName);
         chatMessages.appendChild(joinMessageElement);
         scrollScreen();
+        console.log("cheguei aqui")
         return; // Sai da função para não processar como mensagem normal
     }
     const {userID,userName,userColor,content} =messageData
