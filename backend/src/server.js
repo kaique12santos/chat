@@ -7,10 +7,10 @@ const wss = new WebSocketServer({ port: process.env.PORT || 8080 })
 
 wss.on("connection", (ws) => {
     ws.on("error", console.error);
-    console.log("entrou")
+    
     ws.on("message", (data) => {
-        console.log(data.toString())
-        wss.clients.forEach((client) => client.send(data.toString()))
+        const message = JSON.parse(data.toString());
+        wss.clients.forEach((client) => client.send(JSON.stringify(message)))
     })
 
     console.log("client connected")

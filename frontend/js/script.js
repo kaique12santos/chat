@@ -49,6 +49,13 @@ const createrMessageOtherElement= (content,sender,senderColor) =>{
     return div
 }
 
+const createJoinMessageElement = (userName) => {
+    const div = document.createElement("div");
+    div.classList.add("message--join"); 
+    div.textContent = `${userName} se juntou à conversa`;
+    return div;
+};
+
 const getRandomColor=()=>{
     const randomIndex =Math.floor(Math.random() * colors.length)
     return colors[randomIndex]
@@ -62,7 +69,17 @@ const scrollScreen = () =>{
 }
 
 const processMessage = ({data}) =>{
-    const {userID,userName,userColor,content} =JSON.parse(data)
+
+    const messageData = JSON.parse(data);
+
+    // Verifica o tipo da mensagem
+    if (messageData.type === "join") {
+        const joinMessageElement = createJoinMessageElement(messageData.userName);
+        chatMessages.appendChild(joinMessageElement);
+        scrollScreen();
+        return; // Sai da função para não processar como mensagem normal
+    }
+    const {userID,userName,userColor,content} =messageData
 
     const message =
         userID == user.id
@@ -98,6 +115,10 @@ const sendMessages = (event) =>{
         content:chatInput.value
     }
 
+    const joinMessage = {
+        type: "join", 
+        userName: user.name
+    };
     websocket.send(JSON.stringify(message))
     chatInput.value=""
 }

@@ -139,6 +139,14 @@ body{
     border-radius: 0px 10px 10px 10px;
     align-self: flex-start;
 }
+
+.message--join {
+    text-align: center;
+    font-style: italic;
+    color: #777; /* ou outra cor que preferir */
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+}
 .message--sender{
     display: block;
     margin-bottom: 15px;
