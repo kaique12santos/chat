@@ -145,3 +145,47 @@ body{
     font-weight: 700;
     color: cadetblue;
 }
+
+@media (max-width: 768px) {  /* Ajuste o valor conforme necessário */
+    body {
+        background-size: cover; /* Para garantir que a imagem de fundo cubra toda a tela */
+    }
+
+    .container {
+        height: 100vh; /* Ocupar toda a altura da viewport */
+    }
+
+    .chat {
+        flex-direction: column; /* Importante: mensagens acima do formulário */
+        height: 100vh; /* Ocupar toda a altura disponível */
+    }
+
+    .chat__messages {
+        padding: 20px; /* Ajustar o padding para telas menores */
+        overflow-y: auto; /* Adicionar barra de rolagem se necessário */
+        flex-grow: 1;   /* Permitir que as mensagens ocupem o espaço restante */
+    }
+
+    .chat__form {
+        width: 100%;
+        position: fixed; /* Manter o formulário fixo na parte inferior */
+        bottom: 0;
+        left: 0;
+        padding: 10px 15px; /* Ajustar o padding */
+    }
+
+    .chat__input {
+        border-radius: 5px; /* Ajustar o raio da borda */
+        font-size: 1rem;   /* Ajustar o tamanho da fonte */
+    }
+
+    .message--self, .message--other {
+        max-width: 90%;  /* Ajustar a largura máxima da mensagem */
+        font-size: 0.9rem; /* Ajustar o tamanho da fonte da mensagem */
+        margin-bottom: 10px; /* Ajustar a margem inferior */
+    }
+
+    .login {
+        width: 90%; /* Ocupar uma porcentagem maior da largura da tela */
+    }
+}

@@ -103,23 +103,7 @@ const sendMessages = (event) =>{
 }
 
 loginForm.addEventListener("submit",handLeLogin)
-//chatForm.addEventListener("touchend", sendMessages)
+
 chatForm.addEventListener("submit", sendMessages)
-// Detectar o tipo de dispositivo
-// const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-// // Exibir o tipo de dispositivo no console (para debug)
-// console.log(`Dispositivo detectado: ${isMobile ? "Mobile" : "Desktop"}`);
-
-// // Atualizar o evento de envio de mensagens com base no dispositivo
-// if (isMobile) {
-//     chatForm.addEventListener("touchend", (event) => {
-//         // Garante que o evento ocorre apenas em botões ou entradas válidas
-//         if (event.target.tagName === "BUTTON" || event.target.tagName === "INPUT") {
-//             sendMessages(event);
-//         }
-//     });
-// } else {
-//     chatForm.addEventListener("submit", sendMessages);
-// }
 
