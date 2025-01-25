@@ -48,13 +48,14 @@ const createrMessageOtherElement= (content,sender,senderColor) =>{
 
     return div
 }
-
 const createJoinMessageElement = (userName) => {
     const div = document.createElement("div");
-    div.classList.add("message--join"); 
+    div.classList.add("message--join");
     div.textContent = `${userName} se juntou à conversa`;
     return div;
 };
+
+
 
 const getRandomColor=()=>{
     const randomIndex =Math.floor(Math.random() * colors.length)
@@ -69,18 +70,30 @@ const scrollScreen = () =>{
 }
 
 const processMessage = ({data}) =>{
+    console.log("Mensagem recebida:", data);
 
     const messageData = JSON.parse(data);
 
-    // Verifica o tipo da mensagem
-    if (messageData.type === "join") {
-        const joinMessageElement = createJoinMessageElement(messageData.userName);
+
+    // Verifica se é a mensagem de entrada do próprio usuário
+    if (messageData.userID === user.id && messageData.content.endsWith("se juntou à conversa.")) {
+        const joinMessageElement = createJoinMessageElement("Você"); // Cria um elemento de mensagem de entrada com "Você"
         chatMessages.appendChild(joinMessageElement);
         scrollScreen();
-        console.log("cheguei aqui")
-        return; // Sai da função para não processar como mensagem normal
+        return; // Sai da função
     }
-    const {userID,userName,userColor,content} =messageData
+
+
+    // Se for mensagem de outro usuário entrando
+    if (messageData.content.endsWith("se juntou à conversa.")) {
+        const joinMessageElement = createJoinMessageElement(messageData.userName); // Usa o nome de usuário recebido na mensagem
+        chatMessages.appendChild(joinMessageElement);
+        scrollScreen();
+        return; // Sai da função
+    }
+
+    const {userID,userName,userColor,content} =JSON.parse(data)
+    console.log("Dados da mensagem:", userID, userName, userColor, content);
 
     const message =
         userID == user.id
@@ -101,8 +114,27 @@ const handLeLogin = (event) =>{
     login.style.display="none"
     chat.style.display="flex"
 
+    
+    const firstMessage = {
+        userID: user.id,
+        userName: user.name,
+        userColor: user.color,
+        content: `${user.name} se juntou à conversa.` // Mensagem de entrada
+    };
     websocket = new WebSocket("wss://chat-o0z2.onrender.com");
+    websocket.onopen = () => {
+        console.log("Conexão WebSocket estabelecida com sucesso!");
+        // Envie a primeira mensagem aqui, dentro do onopen
+        websocket.send(JSON.stringify(firstMessage));
+    };
+    
     websocket.onmessage = processMessage
+
+    
+
+    
+    
+    
 
 }
 
@@ -116,10 +148,6 @@ const sendMessages = (event) =>{
         content:chatInput.value
     }
 
-    const joinMessage = {
-        type: "join", 
-        userName: user.name
-    };
     websocket.send(JSON.stringify(message))
     chatInput.value=""
 }

@@ -143,9 +143,10 @@ body{
 .message--join {
     text-align: center;
     font-style: italic;
-    color: #777; /* ou outra cor que preferir */
+    color: #ffffff; 
     margin-bottom: 10px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    align-self: center;
 }
 .message--sender{
     display: block;
